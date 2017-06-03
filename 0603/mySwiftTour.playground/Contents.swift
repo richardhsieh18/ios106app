@@ -276,7 +276,7 @@ for i in stride(from: 10, through: 0, by: -2)
 print(total)
 
 */
-
+/*
 
 func greet(person: String, lunch: String) -> String {
     return "Hello \(person), today lunch is \(lunch)."
@@ -522,6 +522,14 @@ class EquilateralTriangle: NamedShape {
             sideLength = newValue / 3.0
         }
     }
+    var area:Double{
+        get{
+            let s = sideLength * 3 / 2
+            let k = s*(s-sideLength)*(s-sideLength)*(s-sideLength)
+            return sqrt(k)
+            //return sqrt(((sideLength * 3)/2) * (((sideLength * 3)/2) - sideLength))  //算錯了，要修正
+        }
+    }
     
     override func simpleDescription() -> String {
         return "An equilateral triangle with sides of length \(sideLength)."
@@ -531,5 +539,275 @@ var triangle = EquilateralTriangle(sideLength: 3.1, name: "a triangle")
 print(triangle.perimeter)
 triangle.perimeter = 9.9
 print(triangle.sideLength)
+print(triangle.area)
 
 
+
+class TriangleAndSquare {
+    var triangle: EquilateralTriangle {
+        willSet {
+            square.sideLength = newValue.sideLength
+        }
+    }
+    var square: Square {
+        willSet {
+            triangle.sideLength = newValue.sideLength
+        }
+    }
+    init(size: Double, name: String) {
+        square = Square(sideLength: size, name: name)
+        triangle = EquilateralTriangle(sideLength: size, name: name)
+    }
+    deinit {
+        print("三角形與正方形被釋放了")
+    }
+}
+
+var triangleAndSquare = TriangleAndSquare(size: 10, name: "another test shape")
+print(triangleAndSquare.square.sideLength)
+print(triangleAndSquare.triangle.sideLength)
+triangleAndSquare.square = Square(sideLength: 50, name: "larger square")
+print(triangleAndSquare.triangle.sideLength)
+print(triangleAndSquare.square.sideLength)
+
+/*  對class reference有疑問，待釋疑
+var a = triangleAndSquare.square.sideLength
+triangleAndSquare.square.sideLength = 80
+print(a)
+*/
+
+let optionalSquare: Square? = Square(sideLength: 2.5, name: "optional square")
+let sideLength = optionalSquare?.sideLength
+print(sideLength)  //尚未解封
+
+var optionalTriangleAndSquare:TriangleAndSquare? = TriangleAndSquare(size: 5, name: "新三角形與正方形")
+var aSideLength = optionalTriangleAndSquare?.square.sideLength    //選擇性串連
+print(optionalTriangleAndSquare?.square.sideLength) //未拆封
+
+optionalTriangleAndSquare = nil  //試deinit，下方Optional Binding則因為nil不執行
+if let length = optionalTriangleAndSquare?.square.sideLength{
+    print("邊長三倍\(length * 3)")
+}
+*/
+//  =====Enumerations and Structures======0603======
+
+enum Rank: Int {
+    case ace = 1
+    case two, three, four, five, six, seven, eight, nine, ten
+    case jack, queen, king
+    
+    func simpleDescription() -> String {
+        switch self {
+            case .ace:
+                return "ace"
+            case .jack:
+                return "jack"
+            case .queen:
+                return "queen"
+            case .king:
+                return "king"
+            default:
+                return String(self.rawValue)
+        }
+    }
+
+}
+let ace = Rank.ace
+let aceRawValue = ace.rawValue
+
+var five = Rank.five
+five.rawValue
+five.simpleDescription()
+
+func compare(rank1:Rank, rank2:Rank) -> String {
+    if rank1.rawValue > rank2.rawValue{
+        return "前面\(rank1)大於後面\(rank2)"
+    }else if rank1.rawValue < rank2.rawValue {
+        return "前面\(rank1)小於後面\(rank2)"
+    }else{
+        return "前面\(rank1)等於後面\(rank2)"
+    }
+}
+var r1 = Rank.two
+var r2 = Rank.jack
+compare(rank1: r1, rank2: r2)
+
+enum CompassPoint3:String{
+    case north = "N"
+    case south = "S"
+    case east
+    case west
+}
+
+let dCP = CompassPoint3.south
+dCP.rawValue
+
+
+if let convertedRank = Rank(rawValue: 3) {
+    let threeDescription = convertedRank.simpleDescription()
+		}
+
+
+enum Suit:Int {
+    case spades, hearts, diamonds, clubs
+    func simpleDescription() -> String {
+        switch self {
+        case .spades:
+            return "♤"
+        case .hearts:
+            return "♡"
+        case .diamonds:
+            return "♢"
+        case .clubs:
+            return "♧"
+        }
+    }
+    func color() -> String {
+        switch self {
+            case .spades,.clubs:
+                return "Black"
+            default:
+                return "Red"
+        }
+    }
+}
+let hearts = Suit.hearts
+let heartsDescription = hearts.simpleDescription()
+let heartsColor = hearts.color()
+
+
+//================Struct===================
+
+struct Card {
+    var rank: Rank
+    var suit: Suit
+    func simpleDescription() -> String {
+        return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+    }
+
+    static func fullStack() -> [Card]   {
+        var cards = [Card]()
+        for s in Suit.spades.rawValue...Suit.clubs.rawValue
+        {
+            for r in Rank.ace.rawValue...Rank.king.rawValue
+            {
+                let card = Card(rank: Rank(rawValue: r)!, suit: Suit(rawValue: s)!)
+                //return "The \(r.simpleDescription()) of \(s.simpleDescription())"
+                cards.append(card)
+            }
+        }
+        return cards
+    }
+}
+var threeOfSpades = Card(rank: .three, suit: .spades)
+let threeOfSpadesDescription = threeOfSpades.simpleDescription()
+
+var testCard = threeOfSpades  //此處動作為copy,not refference
+testCard.simpleDescription()
+threeOfSpades = Card(rank: .five, suit: .diamonds)
+threeOfSpades.simpleDescription()
+testCard.simpleDescription()
+
+Card.fullStack()
+
+//值型別(Value Type)   Vs. 引用型別(Reference Type)
+//「結構」和「列舉」是值型別(Value Type)，Int,Double,Dictionary,Array都是結構!
+//「類別」是引用型別(Reference Type)，涉及到記憶體的引用計數(Reference Counting)之釋放
+
+struct Resolution{
+    var width = 0
+    var height = 0
+}
+
+class VideoMode{
+    var resolution = Resolution()
+    var interlaced = false
+    var frameRate = 0.0
+    var name: String?
+    
+    deinit {
+        print("釋放記憶體")
+    }
+}
+let someResolution = Resolution()
+let someVideoMode = VideoMode()
+
+print("The width of someResolution is \(someResolution.width)")
+print("The width of someVideoMode is \(someVideoMode.resolution.width)")
+someVideoMode.resolution.width = 1280
+print("The width of someVideoMode is now \(someVideoMode.resolution.width)")
+
+let vga = Resolution(width: 640, height: 480)
+let hd = Resolution(width: 1920, height: 1080)
+var cinema = hd   //結構值的copy
+cinema.width = 2048
+print("cinema is now \(cinema.width) pixels wide")
+print("hd is still \(hd.width) pixels wide")
+
+enum CompassPoint4 {
+    case north, south, east, west
+}
+var currentDirection = CompassPoint4.west
+let rememberedDirection = currentDirection    // enum 的 copy
+currentDirection = .east
+if rememberedDirection == .west {
+    print("The remembered direction is still .west")
+}
+
+// class是引用型別(Reference Type)
+
+var tenEighty:VideoMode! = VideoMode()  //此處調整為var 和Optional，此時引用計數為1
+tenEighty.resolution = hd
+tenEighty.interlaced = true
+tenEighty.name = "1080i"
+tenEighty.frameRate = 25.0
+
+//此處為class實體「記憶體位置」的引用
+var alsoTenEighty:VideoMode! = tenEighty   //此處調整為var 和Optional，此時引用計數為2
+alsoTenEighty.frameRate = 30.0
+print("The frameRate property of tenEighty is now \(tenEighty.frameRate)")
+
+alsoTenEighty.resolution = vga  //改掉原值，因為是引用同個記憶體位置
+print("\(tenEighty.resolution)")
+print("\(alsoTenEighty.resolution)")
+
+
+
+tenEighty = nil         //引用計數降為1
+alsoTenEighty = nil  //引用計數降為0，此時觸發ARC機制，釋放已經配置的記憶體空間
+
+
+if tenEighty === alsoTenEighty {
+print("tenEighty and alsoTenEighty refer to the same VideoMode instance.")
+}
+// Prints "tenEighty and alsoTenEighty refer to the same VideoMode instance."
+
+
+//============Protocols and Extensions ===================
+
+protocol ExampleProtocol {
+    var simpleDescription: String { get }
+    mutating func adjust()
+}
+
+class SimpleClass: ExampleProtocol {
+    var simpleDescription: String = "A very simple class."
+    var anotherProperty: Int = 69105
+    
+    func adjust() {
+     simpleDescription += "  Now 100% adjusted."
+    }
+}
+var a = SimpleClass()
+a.adjust()
+let aDescription = a.simpleDescription
+
+struct SimpleStructure: ExampleProtocol {
+    var simpleDescription: String = "A simple structure"
+    mutating func adjust() {
+    simpleDescription += " (adjusted)"
+    }
+}
+var b = SimpleStructure()
+b.adjust()
+let bDescription = b.simpleDescription
