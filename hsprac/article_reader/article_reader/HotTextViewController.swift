@@ -17,7 +17,6 @@ class HotTextViewController: UITableViewController
     func loadData()
     {
         
-        
         let urlString = "https://disp.cc/api/hot_text.json"
         
         
@@ -28,7 +27,7 @@ class HotTextViewController: UITableViewController
             guard response.result.isSuccess else
         {
         let errorMessage = response.result.error?.localizedDescription
-        print(errorMessage)
+        print(errorMessage!)
         return
         }
         guard let JSON = response.result.value as? [String: Any] else
@@ -46,10 +45,10 @@ class HotTextViewController: UITableViewController
 }
 
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
         //不知道差在哪self.refreshControl?.addTarget(self, action: #selector(refresh(_:)), for controlEvents: UIControlEvents.valueChanged)
         self.refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: UIControlEvents.valueChanged)
-        super.viewDidLoad()
+        
         
 
         // Uncomment the following line to preserve selection between presentations
@@ -89,13 +88,15 @@ class HotTextViewController: UITableViewController
             return cell
         }
         
-        cell.textLabel?.text = hotText["title"] as? String
-        cell.detailTextLabel?.text = hotText["desc"] as? String
+        cell.titleLabel?.text = hotText["title"] as? String
+        cell.descLabel?.text = hotText["desc"] as? String
         
         let img_list = hotText["img_list"] as? [String]
         let placeholderImage = UIImage(named: "displogo120")
+        
         if img_list?.count != 0 {
             let url = URL(string: (img_list?[0])!)!
+            //cell.thumbImageView?.af_setImage(withURL: url, placeholderImage: placeholderImage, completion: nil)
             cell.thumbImageView?.af_setImage(withURL: url, placeholderImage: placeholderImage)
         }else{
             cell.thumbImageView?.image = placeholderImage
@@ -146,14 +147,22 @@ class HotTextViewController: UITableViewController
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        // 1.
+        if segue.identifier == "TextRead" {
+            // 2.
+            guard let textViewController = segue.destination as? TextViewController,
+                let row = self.tableView.indexPathForSelectedRow?.row,
+                let hotText = self.hotTextArray?[row] as? [String: Any]
+                else { return }
+            // 3.
+            textViewController.urlString = hotText["url"] as? String
+        }
     }
-    */
+
 
 }

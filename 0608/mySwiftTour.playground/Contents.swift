@@ -1055,3 +1055,7 @@ func anyCommonElements3<L, R>(_ lhs:[L], _ rhs:[R]) -> Array<L>{
     return myArray
 }
 anyCommonElements3([1, 2, 3], [3.0])
+
+
+
+

@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,19 +27,19 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SCy-vp-7Rj">
-                                            <rect key="frame" x="0.0" y="0.0" width="115" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="ZQi-0h-LGG">
                                             <rect key="frame" x="108" y="5" width="259" height="38"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="38" id="E4b-6n-dX8"/>
+                                                <constraint firstAttribute="height" constant="38" id="r6Y-td-70b"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.031924780458211899" green="0.11221630126237869" blue="0.94957071542739868" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ed2-jR-74a">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="desc" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ed2-jR-74a">
                                             <rect key="frame" x="108" y="43" width="259" height="52"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
@@ -46,20 +47,21 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="ed2-jR-74a" firstAttribute="top" secondItem="ZQi-0h-LGG" secondAttribute="bottom" id="GJg-Af-hsX"/>
-                                        <constraint firstItem="ZQi-0h-LGG" firstAttribute="top" secondItem="52X-60-QXc" secondAttribute="top" constant="5" id="XzB-f7-s8X"/>
-                                        <constraint firstItem="ZQi-0h-LGG" firstAttribute="leading" secondItem="52X-60-QXc" secondAttribute="leading" constant="108" id="aBQ-fv-Q4d"/>
-                                        <constraint firstItem="ed2-jR-74a" firstAttribute="leading" secondItem="52X-60-QXc" secondAttribute="leading" constant="108" id="d0f-eo-Hs8"/>
-                                        <constraint firstAttribute="bottom" secondItem="ed2-jR-74a" secondAttribute="bottom" constant="4.5" id="fgS-r7-X6y"/>
-                                        <constraint firstAttribute="trailing" secondItem="ZQi-0h-LGG" secondAttribute="trailing" constant="8" id="pGs-u7-lUM"/>
-                                        <constraint firstAttribute="trailing" secondItem="ed2-jR-74a" secondAttribute="trailing" constant="8" id="q70-vc-jZ7"/>
+                                        <constraint firstAttribute="bottom" secondItem="ed2-jR-74a" secondAttribute="bottom" constant="4.5" id="F8K-Zj-fp8"/>
+                                        <constraint firstItem="ed2-jR-74a" firstAttribute="top" secondItem="ZQi-0h-LGG" secondAttribute="bottom" id="NUc-k8-WFq"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZQi-0h-LGG" secondAttribute="trailing" constant="8" id="b6U-oP-bws"/>
+                                        <constraint firstAttribute="trailing" secondItem="ed2-jR-74a" secondAttribute="trailing" constant="8" id="f22-li-edG"/>
+                                        <constraint firstItem="ZQi-0h-LGG" firstAttribute="leading" secondItem="52X-60-QXc" secondAttribute="leading" constant="108" id="iBJ-wD-eZG"/>
+                                        <constraint firstItem="ed2-jR-74a" firstAttribute="leading" secondItem="52X-60-QXc" secondAttribute="leading" constant="108" id="iaI-YG-YRW"/>
+                                        <constraint firstItem="ZQi-0h-LGG" firstAttribute="top" secondItem="52X-60-QXc" secondAttribute="top" constant="5" id="q7F-yT-yrO"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="descLabel" destination="ed2-jR-74a" id="VJu-dV-Bah"/>
-                                    <outlet property="thumbImageView" destination="SCy-vp-7Rj" id="jKg-if-W2h"/>
+                                    <outlet property="thumbImageView" destination="SCy-vp-7Rj" id="LUZ-hG-O8d"/>
                                     <outlet property="titleLabel" destination="ZQi-0h-LGG" id="GWD-VV-Ev0"/>
+                                    <segue destination="CkC-iV-szS" kind="show" identifier="TextRead" id="vxI-AX-KUG"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -83,7 +85,7 @@
                             <fragment content="更新熱門文章">
                                 <attributes>
                                     <font key="NSFont" size="11" name=".PingFangTC-Regular"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                 </attributes>
                             </fragment>
                         </attributedString>
@@ -91,7 +93,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4vQ-64-uEM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="78" y="-100"/>
+            <point key="canvasLocation" x="-44" y="-100"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kMi-tO-nL3">
@@ -108,6 +110,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vQt-Gc-iba" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-823" y="-100"/>
+        </scene>
+        <!--閱讀文章-->
+        <scene sceneID="zgW-YJ-v3l">
+            <objects>
+                <viewController title="閱讀文章" id="CkC-iV-szS" customClass="TextViewController" customModule="article_reader" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eYj-ua-7qs"/>
+                        <viewControllerLayoutGuide type="bottom" id="gHq-IN-3tD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zfS-vN-3PJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mBr-3B-nl5">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="mBr-3B-nl5" secondAttribute="trailing" id="CQk-SQ-eDT"/>
+                            <constraint firstItem="mBr-3B-nl5" firstAttribute="top" secondItem="zfS-vN-3PJ" secondAttribute="top" id="NR8-I7-ioZ"/>
+                            <constraint firstItem="mBr-3B-nl5" firstAttribute="leading" secondItem="zfS-vN-3PJ" secondAttribute="leading" id="Rce-GC-CME"/>
+                            <constraint firstItem="gHq-IN-3tD" firstAttribute="top" secondItem="mBr-3B-nl5" secondAttribute="bottom" id="cw0-bT-vkh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="閱讀文章" id="STS-29-PxK">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="refresh" id="N8Z-3u-rtR">
+                                <connections>
+                                    <action selector="refresh:" destination="CkC-iV-szS" id="Ur1-nP-1MY"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem enabled="NO" title="回上頁" id="MSA-OF-ULy">
+                                <connections>
+                                    <action selector="goBack:" destination="CkC-iV-szS" id="CiH-vO-Mdj"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="goBackBtn" destination="MSA-OF-ULy" id="pDP-A9-cJk"/>
+                        <outlet property="webView" destination="mBr-3B-nl5" id="1Og-nC-pw6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uEe-zz-Z5Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="687" y="-100"/>
         </scene>
     </scenes>
 </document>
