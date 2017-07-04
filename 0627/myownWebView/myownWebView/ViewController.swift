@@ -8,7 +8,7 @@ class ViewController: UIViewController,UIWebViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let url = URL(string: "https://tw.yahoo.com")
+        let url = URL(string: "https://www.apple.com/tw")
         
         let request = URLRequest(url: url!)
         
