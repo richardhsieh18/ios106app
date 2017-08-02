@@ -20,20 +20,20 @@ class HotTextViewController: UITableViewController
         let urlString = "https://disp.cc/api/hot_text.json"
         
         
-        Alamofire.request(urlString).responseJSON
-        {
+        Alamofire.request(urlString).responseJSON{
         response in
-            self.refreshControl?.endRefreshing()
-            guard response.result.isSuccess else
-        {
-        let errorMessage = response.result.error?.localizedDescription
-        print(errorMessage!)
-        return
-        }
+        self.refreshControl?.endRefreshing()
+        guard response.result.isSuccess else
+            {
+                let errorMessage = response.result.error?.localizedDescription
+                print(errorMessage!)
+                return
+            }
+        
         guard let JSON = response.result.value as? [String: Any] else
         {
-        print("JSON format error")
-        return
+            print("JSON format error")
+            return
         }
         if let list = JSON["list"] as? [Any]
         {
