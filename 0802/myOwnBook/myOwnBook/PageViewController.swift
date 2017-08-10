@@ -69,6 +69,8 @@ class PageViewController: UIPageViewController,UIPageViewControllerDelegate,UIPa
         contentViewController.currentPage = pageCounter
         return contentViewController
     }
+    
+    
     //MARK: UIPageViewControllerDelegate
     func pageViewController(_ pageViewController: UIPageViewController, spineLocationFor orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
         return .min //翻轉軸心在右側
